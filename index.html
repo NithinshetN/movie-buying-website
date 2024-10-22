@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Rental</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="mainPage">
+        <nav class="navbar" id="navbar">
+            <div class="iconInfo">
+                <i class="fa-solid fa-clapperboard"></i>
+                <h3>Play Movies</h3>
+            </div>
+            <div class="search" id="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text">
+            </div>
+            <button></button>
+        </nav>
+
+        <div class="mainContent">
+
+        </div>
+
+        <div class="message">
+            <div class="popup">
+                <button type="button" class="btn btn-danger cancel" id="remove"><i class="fa-solid fa-x"></i></button>
+                <div class="descriptionCard">
+                    <i class="fa-regular fa-circle-check" id="tick"></i>
+                    <p></p>
+                    <p>Click ‘Continue’ to proceed</p>
+                </div>
+                <div class="buttonClass">
+                    <button type="button" class="btn btn-danger cancel">Cancel</button>
+                    <button type="button" class="btn btn-success" id="continue">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="message">
+            <div class="popup">
+                <center><i class="fa-regular fa-circle-check" id="tick" style="color:green;margin-top:1rem"></i> </center>
+                <P></P>
+                <button type="button" class="btn btn-success" id="ok">ok</button>
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
