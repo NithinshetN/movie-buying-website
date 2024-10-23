@@ -209,9 +209,10 @@
 
 .popup {
   font-size: 20px;
+  border: 1px solid #ffffff57;
   background-color: rgba(255, 255, 255, 0.79);
   box-shadow: 0 7px 20px 5px #00000088;
-  border-radius: 5px;
+  border-radius: 0.7rem;
   width: fit-content;
   height: fit-content;
   padding: 5px;
