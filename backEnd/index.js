@@ -63,6 +63,7 @@ const connectToDatabase = async () => {
     }
 }
 
+
 let movie, user;
 (async () => {
     ({ movie, user } = await connectToDatabase());
@@ -159,9 +160,9 @@ app.post("/createOrder", async (req, res, next) => {
     const options = {
         amount: amount, // amount in the smallest currency unit (paise)
         currency: "INR",
-        receipt: `order_rcptid_${uuidV4}` // You can generate a unique receipt ID for each order
+        receipt: uuidV4() // You can generate a unique receipt ID for each order
     };
-
+    console.log(uuidV4());
     try {
         const order = await razorPay.orders.create(options);
         order.razorPayKey = process.env.key_id;
@@ -237,9 +238,9 @@ const verifyJWTToken = (req, res, next) => {
 
 //global error
 app.use((error, req, res, next) => {
+    console.log(error)
     res.status(400).json({ error });
 });
-
 
 
 
