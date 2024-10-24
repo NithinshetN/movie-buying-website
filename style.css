@@ -6,15 +6,21 @@
   width: 100%;
   height: 100vh;
 }
-
+:root{
+  --primary-color:#2c2738;
+  --secondary-color:#6d53b5;
+  --tertiory-color:#3b364d;
+  --hover-color:#6d53b5e2;
+  --hover-second-color:
+}
 
 .navbar{
-  background-color: #0b1416;
+  background-color: #18151f;
   height: fit-content;
   display: flex;
   width: 100vw;
   padding: 20px auto;
-  justify-content: center;
+  justify-content: space-between;
   overflow: hidden;
   box-shadow: 0 0px 20px 5px #00000088;
   z-index: 1;
@@ -33,7 +39,26 @@
   z-index: 0;
 }
 
+.back{
+  background-color: rgba(255, 255, 255, 0.63);
+  color:var(--tertiory-color);
+  border-radius: 1rem;
+  display: flex;
+  width: fit-content;
+  padding:2px 10px;
+  position:absolute;
+  z-index: 1;
+  right: 20px;
+  top:9px;
+  align-items: center;
+  transform: scale(0.8);
+  cursor: pointer;
+  transition: 0.1s all;
+}
 
+.back:hover{
+  transform: scale(0.85);
+}
 .iconInfo i {
   transform: scale(2);
   margin: auto 20px;
@@ -59,7 +84,7 @@
 .navbar .search{
   width: 40%;
   height: 2.5rem;
-  background-color: #1a282d;
+  background-color: var(--primary-color);
   display: flex;
   justify-content: space-between;
   border-radius: 10rem;
@@ -70,6 +95,35 @@
     color:rgba(255, 255, 255, 0.81);
     margin-left:5px;
   }
+}
+.btn-primary{
+  background-color: var(--secondary-color);
+  border: 1.5px solid var(--secondary-color);
+}
+
+.btn-primary:hover{
+  background-color: var(--hover-color);
+  border:1.5px solid var(--hover-color);  
+}
+
+.btn-success{
+  background-color: var(--secondary-color);
+  border: 1.5px solid var(--secondary-color);
+}
+
+.btn-success:hover{
+  background-color: var(--hover-color);
+  border:1.5px solid var(--hover-color);  
+}
+
+.btn-danger{
+  background-color: var(--tertiory-color);
+  border: 1.5px solid var(--tertiory-color);
+}
+
+.btn-danger:hover{
+  background-color: #3b364dab;
+  border:1.5px solid #3b364dab;
 }
 
 .search input{
@@ -209,8 +263,7 @@
 
 .popup {
   font-size: 20px;
-  border: 1px solid #ffffff57;
-  background-color: rgba(255, 255, 255, 0.79);
+  background-color: var(--primary-color);
   box-shadow: 0 7px 20px 5px #00000088;
   border-radius: 0.7rem;
   width: fit-content;
@@ -223,6 +276,7 @@
   z-index: 1;
   overflow: hidden;
   animation:  maximize 0.1s linear;
+  color:rgba(255, 255, 255, 0.709);
 }
 
 .popup #remove{
@@ -230,7 +284,7 @@
 }
 
 .popup #tick{
-  color:whtie;
+  color:var(--hover-color);
   transform: scale(3);
   width: fit-content;
   height: fit-content;
@@ -263,10 +317,106 @@
   top:0px;
   display: none;
   background-color: rgba(240, 240, 240, 0.074);
+  justify-content: center;
+  align-items: center;
 }
 
 
 @keyframes maximize {
   0%{transform: scale(0);}
   100%{width: scale(1);height:scale(1);}
+}
+
+.registration{
+  background-color: var(--primary-color);
+  box-shadow: 0 7px 20px 5px #00000088;
+  border-radius: 0.7rem;
+  margin: auto auto;
+  padding: 10px;
+  display: flex;
+  height: 60vh;
+  width: 50vw;
+  justify-content: space-between;
+}
+
+.slider-container{
+  border-radius: 0.7rem;
+  height: 100%;
+  overflow: hidden;
+  width: 50%;
+  position: relative;
+}
+
+.coverImageTag{
+  width: 95%;
+  height: 100%;
+  border-radius: 0.7rem;
+  position:absolute;
+  left:0;
+  transition: transform 1s ease-in-out;
+}
+
+
+
+img.fade-out{
+  transform: translateX(-100%);
+}
+img.fade-in{
+  transform: translateX(0%);
+}
+.coverInput{
+  width: 50%;
+  height: 100%;
+}
+
+.register{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: space-around;
+  width: 100%;
+  height: 100%;
+  color:#fff;
+}
+
+.heading{
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.signup{
+  display: none;
+}
+
+.login{
+  display:  flex;
+}
+
+.register input{
+  background: none;
+  /* color: inherit; */
+  border: 1.5px solid #2c2738;
+  padding: 0;
+  font: inherit;
+  cursor: text;
+  outline: inherit;
+  color: white;
+  width: 99%;
+  background-color: var(--tertiory-color);
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.35rem;
+}
+
+
+.register input:focus{
+  border: 1.5px solid var(--secondary-color);
+}
+
+.register span{
+  color:var(--secondary-color);
+  cursor: pointer;
 }

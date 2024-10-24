@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Rental</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -23,7 +23,9 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text">
             </div>
-            <button type="button" class="btn btn-primary">Login</button>
+            <div class="div">
+                <button type="button" class="btn btn-primary" id="login">Login</button>
+            </div>
         </nav>
 
         <div class="mainContent">
@@ -47,16 +49,49 @@
 
         <div class="message">
             <div class="popup">
-                <center><i class="fa-regular fa-circle-check" id="tick" style="color:green;margin-top:1rem"></i> </center>
+                <center><i class="fa-regular fa-circle-check" id="tick" style="color:green;margin-top:1rem"></i>
+                </center>
                 <P></P>
                 <button type="button" class="btn btn-success" id="ok">ok</button>
             </div>
+        </div>
+
+        <div class="message" id="registration-form">
+            <form class="registration">
+                <div class="slider-container">
+                    <p class="back">Back to website <i class="fa-solid fa-arrow-right"></i></p>
+                </div>
+
+                <div class="coverInput">    
+                    <div class="register signin">
+                        <div class="heading">
+                            <h2>Log in</h2>
+                        </div>
+                        <input type="email" placeholder="Email">
+                        <input type="password" placeholder="Password">
+                        <button type="submit" class="btn btn-primary"  id="">Submit</button>
+                        <p>New to Play movies?<span class="signupLink"> <u>Sign up</u></span></p>
+                    </div>
+                    <div class="register signup ">
+                        <div class="heading">
+                            <h2>Create an account</h2>
+                        </div>
+                        <input type="text" name="" id="" placeholder="Username">
+                        <input type="email" name="" id="" placeholder="Email">
+                        <input type="password" name="" id="" placeholder="Password">
+                        <input type="password" name="" id="" placeholder="Confirm password">
+                        <p>Already have an account?<span class="loginLink"> <u>Login</u></span></p>
+                        <button type="submit" class="btn btn-primary" id="">Create account</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="footer"></div>
     </div>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="app.js"></script>
+    <script src="user.js"></script>
 </body>
 
 </html>
