@@ -1,4 +1,3 @@
-
 export const createElement = ({ elementName, innerText = "", innerHTML = "", classNames = "", attributes = [], eventListner = [] }) => {
     try {
         if (!elementName) throw "Specify Element Name";

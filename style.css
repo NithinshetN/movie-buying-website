@@ -322,15 +322,15 @@
 .message {
   width: 100%;
   height: 100vh;
-  z-index: 0;
+  z-index: 1;
   position: fixed;
   top: 0px;
   display: none;
-  background-color: rgba(240, 240, 240, 0.074);
+  background-color: rgba(8, 5, 5, 0.408);
   justify-content: center;
   align-items: center;
-  /* backdrop-filter: blur(10px); */
-  /* -webkit-backdrop-filter: blur(10px); */
+  backdrop-filter: blur(1px); 
+  -webkit-backdrop-filter: blur(1px);
 }
 
 @keyframes maximize {
