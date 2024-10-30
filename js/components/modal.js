@@ -69,11 +69,6 @@ export const modalComponent = (...args) => {
         }]
     })
 
-    popup.append(xButton);
-    popup.append(icon);
-    popup.append(para);
-    popup.append(cancelButton);
-    popup.append(continueButton);
-
+    popup.append(xButton,icon,para,cancelButton,continueButton);
     message.append(popup);
 }

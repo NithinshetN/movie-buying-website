@@ -2,9 +2,16 @@
   margin: 0;
   padding: 0;
 }
+
+body{
+  overflow: hidden;
+}
+
 .mainPage {
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 :root {
   --primary-color: #2c2738;
@@ -18,7 +25,7 @@
   background-color: #18151f;
   height: fit-content;
   display: flex;
-  width: 100vw;
+  width: 100%;
   padding: 20px auto;
   justify-content: space-between;
   overflow: hidden;
@@ -28,15 +35,15 @@
 }
 
 .footer {
+  align-self: start;
   background-color: #0b1416;
   height: 4rem;
   display: flex;
-  width: 100vw;
+  width: 100%;
   padding: 20px auto;
   justify-content: space-around;
   overflow: hidden;
   box-shadow: 0 0px 20px 5px #00000088;
-  z-index: 0;
 }
 
 .back {
@@ -150,13 +157,16 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: auto;
+  padding-bottom: 2rem;
+  align-items: flex-start;
+  /* z-index: -1; */
 }
 .content {
   user-select: none;
-  max-width: 300px;
+  /* max-width: 300px; */
   margin: 3rem 2rem;
   border: 1px solid #ffffff57;
   background-color: #282c34;
@@ -174,7 +184,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 18.43rem;
   padding: 1rem;
   height: fit-content;
 }
@@ -343,6 +353,24 @@
   }
 }
 
+@keyframes slideIn{
+  0%{
+    transform:translateX(-110%);
+  }
+  100%{
+    transform:translatex(0%);
+  }
+}
+
+@keyframes slideOut {
+  0%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(110%);
+  }
+}
+
 .registration {
   background-color: var(--primary-color);
   box-shadow: 0 7px 20px 5px #00000088;
@@ -351,7 +379,7 @@
   padding: 10px;
   display: flex;
   height: 60vh;
-  width: 50vw;
+  width: 50%;
   justify-content: space-between;
   animation: maximize 0.1s ease-in-out;
 }
@@ -360,17 +388,16 @@
   border-radius: 0.7rem;
   height: 100%;
   overflow: hidden;
-  width: 50%;
+  width: 48%;
   position: relative;
 }
 
 .coverImageTag {
-  width: 95%;
+  width: 100%;
   height: 100%;
   border-radius: 0.7rem;
   position: absolute;
   left: 0;
-  transition: transform 1s ease-in-out;
 }
 
 img.fade-out {
@@ -438,7 +465,7 @@ img.fade-in {
   position: fixed;
   display: flex;
   flex-direction: column;
-  z-index: 1;
+  z-index: 2;
   width: fit-content;
   height: fit-content;
   justify-content: center;
@@ -487,13 +514,14 @@ img.fade-in {
 .banner-notification span {
   transform: scale(0.65);
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgb(184, 184, 184);
   backdrop-filter: blur(100%);
   -webkit-backdrop-filter: blur(100%);
   padding: 0.15rem 0.5rem;
   border-radius: 50%;
-  right: -10px;
+  left: -10px;
   top: -13px;
+  display: none;
 }
 .banner-notification p {
   margin: 0;

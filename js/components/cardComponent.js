@@ -27,8 +27,7 @@ const createImage = (details) => {
     const icon =createElement({elementName:"i",classNames:"fa-regular fa-circle-play"});
 
     link.appendChild(icon);
-    image.appendChild(img);
-    image.appendChild(link);
+    image.append(img,link);
 
     return image;
 }
@@ -38,9 +37,7 @@ const createMovieInfo = (details) => {
     const para1 = createElement({elementName:"p",classNames:"price",innerText:details.currency + " " + details.price[1]});
     const para2 = createElement({elementName:"p",classNames:"duration",innerText:details.duration});
 
-    infoMovie.appendChild(para1);
-    infoMovie.appendChild(para2);
-
+    infoMovie.append(para1,para2)
     return infoMovie;
 }
 
@@ -72,15 +69,19 @@ const ButtonContainer = (details) => {
         }]
     }));
 
-    creator.appendChild(button1);
-    creator.appendChild(button2);
-
+    creator.append(button1,button2);
     return creator;
 }
 
 export const CreateCard = (details) => {
     const content = createElement({elementName:"div",classNames:"content"});
-    const title = createElement({elementName:"h2",innerText:details.title});
+    const title = document.createElement("h2");
+
+    if(details.title.length>14){
+        title.innerText=details.title.substr(0,12)+"..";
+    }else{
+        title.innerText=details.title;
+    }
     const description = createElement({elementName:"p",classNames:"description",innerText:details.description});
     const hr = document.createElement("hr");
 
@@ -88,12 +89,6 @@ export const CreateCard = (details) => {
     const movieDiv = createMovieInfo(details);
     const buttonDiv = ButtonContainer(details);
 
-    content.append(imageDiv);
-    content.append(title);
-    content.append(description);
-    content.append(movieDiv);
-    content.append(hr);
-    content.append(buttonDiv);
-
+    content.append(imageDiv,title,description,movieDiv,hr,buttonDiv);
     return content;
 }

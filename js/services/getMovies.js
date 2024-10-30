@@ -1,14 +1,19 @@
-var url = "http://localhost:3000"
+import { API_ENDPOINTS,TIMEOUT } from "../utils/config.js";
 export const fetchMoviesData=async(val)=>{
-    let valueData;
+    let value;
     if (!val) {
-        valueData = ""
+        value = ""
     } else {
-        valueData = val
+        value = val
     }
-    const url1 = await fetch(`${url}/getmovies/${valueData}`);
-    const js = await url1.json();
+    const response = await fetch(`${API_ENDPOINTS.movies}/${value}`,{
+        timeout:TIMEOUT
+    });
+    
+    if(!response.ok){
+        throw new Error("Something went wrong!!!");
+    }
 
-    return js;
+    return await response.json();
 }
 

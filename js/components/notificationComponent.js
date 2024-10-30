@@ -3,15 +3,31 @@ import { createElement } from "../utils/domUtils.js";
 const bannerContainer = document.querySelector(".banner-container");
 
 export const NotificationComponent = (message, heading) => {
-    const bannerNotification = createElement({ elementName: "div", classNames: "banner-notification" });
-    const notificationPara = createElement({ elementName: "p", innerText: message });
+    const bannerNotification = createElement({
+        elementName: "div",
+        classNames: "banner-notification",
+        eventListner: [{
+            action: "mouseover",
+            operation: function () {
+                span.style.display = "block";
+            }
+        },
+        {
+            action: "mouseout",
+            operation: function () {
+                span.style.display = "none";
+            }
+        }
+        ]
+    });
+    const notificationPara = createElement({ elementName: "p", innerHTML: message });
 
-    const cssFucntion=()=>{
+    const cssFucntion = () => {
         bannerNotification.style.animation = "notificationOut 0.1s ease-out"
-                bannerNotification.style.transform = `translateX(110%)`;
-                setTimeout(() => {
-                    bannerNotification.remove();
-                }, 200)
+        bannerNotification.style.transform = `translateX(110%)`;
+        setTimeout(() => {
+            bannerNotification.remove();
+        }, 200)
     }
     const span = createElement({
         elementName: "span",
@@ -22,7 +38,7 @@ export const NotificationComponent = (message, heading) => {
         }]
     });
 
-    const header = createElement({elementName:"h5",innerText:heading});
+    const header = createElement({ elementName: "h5", innerText: heading });
 
     setTimeout(() => {
         cssFucntion();

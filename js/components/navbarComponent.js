@@ -1,6 +1,6 @@
 import { createElement } from "../utils/domUtils.js";
-let registerForm = document.querySelector("#registration-form");
-
+import { registrationComponent } from "./registrationComponent.js";
+let message=document.querySelector(".message");
 export const navbarComponent = (getMovieData) => {
     const navbar = createElement({ elementName: "nav", classNames: "navbar", attributes: [{ key: "id", value: "navbar" }] });
     const iconInfo = createElement({ elementName: "div",classNames:"iconInfo", innerHTML: `<i class="fa-solid fa-clapperboard"></i><h3>Play Movies</h3>` });
@@ -53,8 +53,9 @@ export const navbarComponent = (getMovieData) => {
         eventListner: [{
             action: "click",
             operation: function () {
-                this.style.display = "none";
-                registerForm.style.display = "flex";
+                // this.style.display = "none";
+                message.style.display="flex";
+                message.append(registrationComponent());
             }
         }]
     })
@@ -63,9 +64,6 @@ export const navbarComponent = (getMovieData) => {
 
     div.append(logInbutton);
     search.append(input);
-    navbar.append(iconInfo);
-    navbar.append(search);
-    navbar.append(div);
-
+    navbar.append(iconInfo,search,div);
     return navbar;
 }
