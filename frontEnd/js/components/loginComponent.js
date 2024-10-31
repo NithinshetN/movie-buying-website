@@ -69,6 +69,25 @@ export const loginComponent = () => {
         }]
     })
 
+    const showPassword = createElement({
+        elementName: "p",
+        innerText: "Show password",
+        eventListner: [{
+            action: "click",
+            operation: function () {
+                if (password.type === "password") {
+                    password.type = "text";
+                    this.innerText = "Hide password"
+                } else{
+                    password.type = "password";
+                    this.innerText = "Show password"
+                }
+
+            }
+        }]
+    })
+    showPassword.style.cursor = "pointer";
+
     const span = createElement({
         elementName: "span",
         innerHTML: `<u>Sign up</u>`,
@@ -85,7 +104,7 @@ export const loginComponent = () => {
         innerText: "New to Play movies?"
     })
     para.appendChild(span);
-    loginDiv.append(heading, email, password, submit, para);
+    loginDiv.append(heading, email, password, showPassword,submit, para);
     return loginDiv;
 
 }
