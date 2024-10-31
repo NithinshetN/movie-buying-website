@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidV4 } = require("uuid");
 require("dotenv").config();
 
-const jwtPass = process.env.jwtPass;
+const jwtPass = process.env.JWT_SECRET;
 const dbpass = process.env.dbpass;
 dbname = "movie";
 
@@ -71,6 +71,7 @@ let movie, user;
 
 //function to validate the data for user and movie
 const validateFormatMovie = obj => {
+    
     const schema = z.object({
         thumbnail: z.string(),
         trailer: z.string(),
@@ -79,13 +80,14 @@ const validateFormatMovie = obj => {
         price: z.array(z.string()),
         currency: z.string(),
         duration: z.string()
-    })
+    });
+
     return schema.safeParse(obj).success;
 }
 
 const validateFormatUser = obj => {
     const schema = z.object({
-        username: z.string().min(5, { message: "userName must be 5 charecters long" }),
+        username: z.string().min(5, { message: "username must be 5 charecters long" }),
         admin: z.boolean(),
         email: z.string().email({ message: "Enter valid email" }),
         password: z.string()
@@ -105,15 +107,15 @@ const movieExists = async (title) => {
     return existingMovie !== null;
 }
 
-const userExists = async (email, username) => {
-    const existingUser = await user.findOne({ $or: [{ email: email }, { username: username }] });
+const userExists = async (email, userName) => {
+    const existingUser = await user.findOne({ $or: [{ email: email }, { username: userName }] });
     return existingUser !== null;
 }
 
 app.use(express.json());
 app.use(cors());
 
-app.post("/addmovies", async (req, res) => {
+app.post("/addmovies", async (req, res,next) => {
     if (validateFormatMovie(req.body)) {
         if (!await movieExists(req.body.title)) {
             const addMovie = new movie(req.body);
@@ -131,7 +133,7 @@ app.post("/addmovies", async (req, res) => {
     }
 });
 
-app.get("/getmovies/:value?", async (req, res) => { // '?' makes 'value' optional
+app.get("/movies/:value?", async (req, res,next) => { // '?' makes 'value' optional
     let movies;
     try {
         const value = req.params.value;
@@ -178,11 +180,11 @@ app.post("/createOrder", async (req, res, next) => {
 const signup = async (req, res, next) => {
     const signupData = req.body;
     if (!validateFormatUser(signupData).success) {
-        return next(validateFormatUser(signupData).error.errors.map(err => err.message));
+        return next(validateFormatUser(signupData).error.errors[0].message);
     }
 
     if (await userExists(signupData.email, signupData.username)) {
-        return next("userExists");
+        return next("user Exists");
     }
 
     const userData = new user(signupData);
@@ -195,6 +197,7 @@ const signup = async (req, res, next) => {
 //middleware for signin
 const signin = async (req, res, next) => {
     const signinCred = req.body;
+    console.log(signinCred);
     if (!await userExists(signinCred.email)) {
         return next("Invalid user");
     }
@@ -223,7 +226,7 @@ app.post("/signup/", signup, createJWTToken, (req, res) => {
 })
 
 //route for signin
-app.post("/signin", signin, createJWTToken, (req, res) => {
+app.post("/login", signin, createJWTToken, (req, res) => {
 })
 
 
@@ -239,7 +242,7 @@ const verifyJWTToken = (req, res, next) => {
 //global error
 app.use((error, req, res, next) => {
     console.log(error)
-    res.status(400).json({ error });
+    res.status(400).json( {error} );
 });
 
 
