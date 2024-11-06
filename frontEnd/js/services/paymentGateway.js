@@ -1,34 +1,48 @@
 import { NotificationComponent } from "../components/notificationComponent.js";
-var url = "http://localhost:3000";
+import { registrationComponent } from "../components/registrationComponent.js";
+import { HTML_ElEMENTS ,API_ENDPOINTS} from "../utils/config.js";
+
 export const gateWay = async (val) => {
+    const token = sessionStorage.getItem('token');
+
+    if(!token){
+        HTML_ElEMENTS.message.append(registrationComponent());
+        setTimeout(()=>{
+            HTML_ElEMENTS.message.style.display="flex";
+        },500)
+        return;
+    }
+
     try {
-        const response = await fetch(url + "/createOrder", {
+        const response = await fetch(API_ENDPOINTS.createOrder, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"  // Use proper content type for JSON
+                "Content-Type": "application/json", 
+                'Authorization': token
             },
-            body: JSON.stringify({ amount: val * 100 })
+            body: JSON.stringify({ amount: val.amount * 100 })
         });
 
         if (!response.ok) {  // Check if the response is successful
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const order = await response.json();  // No parentheses needed for `response.json()`
+        const order = await response.json();  
+
 
         var options = {
-            key: order.razorPayKey, // Replace with your actual key
+            key: order.razorPayKey, 
             amount: order.amount,
             currency: order.currency,
-            name: "play Movies",
-            description: "Payment description",
-            order_id: order.id,  // Ensure `order.id` exists in the backend response
+            name: val.title,
+            description: val.description,
+            order_id: order.id,  
             handler: function (response) {
-                NotificationComponent("Payment_id: "+response.razorpay_payment_id,"Payment Succesfull");
+                NotificationComponent("Payment_id: " + response.razorpay_payment_id, "Payment Succesfull");
             },
             prefill: {
-                name: 'Customer Name',
-                email: 'customer@example.com',
+                name: order.username,
+                email: order.email,
             },
             theme: {
                 color: '#F37254'
@@ -39,6 +53,8 @@ export const gateWay = async (val) => {
         rzp.open();
 
     } catch (error) {
-        NotificationComponent(error,"Payment Failed");
+        sessionStorage.clear();
+        window.location.reload();
+        NotificationComponent(error, "Payment Failed");
     }
 };

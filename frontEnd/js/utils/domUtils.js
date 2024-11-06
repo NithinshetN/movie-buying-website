@@ -1,4 +1,4 @@
-export const createElement = ({ elementName, innerText = "", innerHTML = "", classNames = "", attributes = [], eventListner = [] }) => {
+export const createElement = ({ elementName, innerText = "", innerHTML = "", classNames = "", attributes = [], eventListener = [] }) => {
     try {
         if (!elementName) throw "Specify Element Name";
         const customElement = document.createElement(elementName);
@@ -20,8 +20,8 @@ export const createElement = ({ elementName, innerText = "", innerHTML = "", cla
             })
         }
 
-        if (eventListner.length > 0) {
-            eventListner.forEach(({ action, operation}) => {
+        if (eventListener.length > 0) {
+            eventListener.forEach(({ action, operation}) => {
                 customElement.addEventListener(action,operation);
             })
         }

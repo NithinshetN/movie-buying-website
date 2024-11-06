@@ -133,6 +133,24 @@ app.post("/addmovies", async (req, res,next) => {
     }
 });
 
+const verifyJWTToken = (req, res, next) => {
+    const authorizaiton = req.headers.authorization;
+    try{
+        jwt.verify(authorizaiton, jwtPass);
+        const data=jwt.decode(authorizaiton);
+        req.headers.username=data.username;
+        req.headers.email=data.email;
+        next();
+    }catch(error){
+        return next(error);
+    }
+}
+
+app.get("/verifytoken",verifyJWTToken,(req,res)=>{
+    const headers = req.headers;
+    res.status(200).json({validation:true,username:headers.username,email:headers.email})
+})
+
 app.get("/movies/:value?", async (req, res,next) => { // '?' makes 'value' optional
     let movies;
     try {
@@ -157,7 +175,8 @@ const razorPay = new RazorPay({
     key_secret: process.env.key_secret
 })
 
-app.post("/createOrder", async (req, res, next) => {
+app.post("/createOrder", verifyJWTToken , async (req, res, next) => {
+    const headers=req.headers;
     const amount = req.body.amount;
     const options = {
         amount: amount, // amount in the smallest currency unit (paise)
@@ -168,6 +187,8 @@ app.post("/createOrder", async (req, res, next) => {
     try {
         const order = await razorPay.orders.create(options);
         order.razorPayKey = process.env.key_id;
+        order.username=headers.username;
+        order.email=headers.email;
         res.status(200).json(order)
     } catch (error) {
         next(error);
@@ -222,22 +243,14 @@ const createJWTToken = (req, res, next) => {
 }
 
 //route for signup
-app.post("/signup/", signup, createJWTToken, (req, res) => {
-})
+app.post("/signup/", signup, createJWTToken)
 
 //route for signin
-app.post("/login", signin, createJWTToken, (req, res) => {
-})
+app.post("/login", signin, createJWTToken)
 
 
-const verifyJWTToken = (req, res, next) => {
-    const authorizaiton = req.headers.authorizaiton;
-    if (jwt.verify(authorizaiton, jwtPass)) {
-        next();
-    } else {
-        res.status(401).json("invalid json token")
-    }
-}
+
+
 
 //global error
 app.use((error, req, res, next) => {

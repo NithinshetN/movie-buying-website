@@ -1,7 +1,8 @@
 import { createElement } from "../utils/domUtils.js";
 import { NotificationComponent } from "./notificationComponent.js";
 import { signup } from "../services/authServices.js";
-const message = document.querySelector(".message");
+import { HTML_ElEMENTS } from "../utils/config.js";
+
 export const signupComponent = () => {
     const loginDiv = createElement({
         elementName: "div",
@@ -69,7 +70,7 @@ export const signupComponent = () => {
     const span = createElement({
         elementName: "span",
         innerHTML: "<u>Login</u>",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
                 loginDiv.style.display = "none";
@@ -81,7 +82,7 @@ export const signupComponent = () => {
     const showPassword = createElement({
         elementName: "p",
         innerText: "Show password",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
                 if (password.type === "password") {
@@ -102,7 +103,7 @@ export const signupComponent = () => {
         elementName: "button",
         classNames: "btn btn-primary",
         innerText: "Create account",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: async function () {
                 if (password.value !== confirmPassword.value) {
@@ -119,10 +120,13 @@ export const signupComponent = () => {
                 }
                 try {
                     const token = await signup(credentials)
-                    localStorage.setItem("token", token.token);
+                    sessionStorage.setItem("token", token.token);
                     NotificationComponent("User Created Succesfully", "Sign up");
                     loginDiv.parentElement.parentElement.remove();
-                    message.style.display = "none";
+                    HTML_ElEMENTS.message.style.display = "none";
+                    setTimeout(()=>{
+                        window.location.reload();
+                    },1000)
                 } catch (error) {
                     NotificationComponent(error.message, "Error")
                 }

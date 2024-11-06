@@ -1,12 +1,12 @@
 //banner notification
+import { HTML_ElEMENTS } from "../utils/config.js";
 import { createElement } from "../utils/domUtils.js";
-const bannerContainer = document.querySelector(".banner-container");
 
 export const NotificationComponent = (message, heading) => {
     const bannerNotification = createElement({
         elementName: "div",
         classNames: "banner-notification",
-        eventListner: [{
+        eventListener: [{
             action: "mouseover",
             operation: function () {
                 span.style.display = "block";
@@ -32,7 +32,7 @@ export const NotificationComponent = (message, heading) => {
     const span = createElement({
         elementName: "span",
         innerHTML: `<i class="fa-solid fa-x"></i>`,
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: cssFucntion
         }]
@@ -47,5 +47,5 @@ export const NotificationComponent = (message, heading) => {
     if (heading) bannerNotification.append(header)
     bannerNotification.appendChild(span);
     bannerNotification.appendChild(notificationPara);
-    bannerContainer.appendChild(bannerNotification);
+    HTML_ElEMENTS.bannerContainer.appendChild(bannerNotification);
 }

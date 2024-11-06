@@ -11,7 +11,7 @@ export const sliderContainer = () => {
         elementName: "p",
         classNames: "back",
         innerHTML: `Back to website <i class="fa-solid fa-arrow-right"></i>`,
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
                 slideContainer.parentElement.parentElement.style.display = "none";
