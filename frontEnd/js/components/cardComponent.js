@@ -42,17 +42,27 @@ const createMovieInfo = (details) => {
 }
 
 const ButtonContainer = (details) => {
-    const creator = document.createElement("div");
-    creator.classList.add("buttonClass");
+    const creator = createElement({
+        elementName:"div",
+        classNames:"buttonClass"
+    });
 
     const button1 = createElement({
         elementName: "button",
         innerText: "Rent",
         classNames: "btn btn-danger",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function(){
-                modalComponent(`<center>Final invoice amount:</br>${details.currency} ${details.price[0]}.00</br>Click 'Continue' to proceed</center>`, gateWay, details.price[0])
+                modalComponent({
+                    innerdata:`<center>Movie name: ${details.title}</br>Final invoice amount:</br>${details.currency} ${details.price[0]}.00</br>Click 'Continue' to proceed</center>`,
+                    functionComponent:gateWay,
+                    data:{
+                        movie:details.title,
+                        description:this.innerText,
+                        amount:details.price[0]
+                    }
+                })
             }
         }]
     })
@@ -61,10 +71,18 @@ const ButtonContainer = (details) => {
         elementName: "button",
         innerText: "Buy",
         classNames: "btn btn-success",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function(){
-                modalComponent(`<center>Final invoice amount:</br>${details.currency} ${details.price[1]}.00</br>Click 'Continue' to proceed</center>`, gateWay, details.price[1]);
+                modalComponent({
+                    innerdata:`<center>Movie name: ${details.title}</br>Final invoice amount:</br>${details.currency} ${details.price[1]}.00</br>Click 'Continue' to proceed</center>`,
+                    functionComponent:gateWay,
+                    data:{
+                        movie:details.title,
+                        description:this.innerText,
+                        amount:details.price[1]
+                    }
+                })
             },
         }]
     }));

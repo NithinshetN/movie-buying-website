@@ -1,7 +1,8 @@
 import { createElement } from "../utils/domUtils.js";
 import { NotificationComponent } from "./notificationComponent.js";
 import { login } from "../services/authServices.js";
-const message = document.querySelector(".message");
+import { HTML_ElEMENTS } from "../utils/config.js";
+
 export const loginComponent = () => {
     const loginDiv = createElement({
         elementName: "div",
@@ -40,7 +41,7 @@ export const loginComponent = () => {
         elementName: "button",
         classNames: "btn btn-primary",
         innerText: "Log in",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: async function () {
                 try {
@@ -57,10 +58,13 @@ export const loginComponent = () => {
                         password: password.value
                     }
                     const token = await login(credentials)
-                    localStorage.setItem("token", token.token);
-                    NotificationComponent("Login succesfull", "login");
+                    sessionStorage.setItem("token", token.token);
+                    NotificationComponent("Login succesfull", "Login");
                     loginDiv.parentElement.parentElement.remove();
-                    message.style.display = "none";
+                    HTML_ElEMENTS.message.style.display = "none";
+                    setTimeout(()=>{
+                        window.location.reload();
+                    },1000)
                 } catch (error) {
                     NotificationComponent(error.message, "Error");
                 }
@@ -72,13 +76,13 @@ export const loginComponent = () => {
     const showPassword = createElement({
         elementName: "p",
         innerText: "Show password",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
                 if (password.type === "password") {
                     password.type = "text";
                     this.innerText = "Hide password"
-                } else{
+                } else {
                     password.type = "password";
                     this.innerText = "Show password"
                 }
@@ -91,7 +95,7 @@ export const loginComponent = () => {
     const span = createElement({
         elementName: "span",
         innerHTML: `<u>Sign up</u>`,
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
                 loginDiv.style.display = "none";
@@ -104,7 +108,7 @@ export const loginComponent = () => {
         innerText: "New to Play movies?"
     })
     para.appendChild(span);
-    loginDiv.append(heading, email, password, showPassword,submit, para);
+    loginDiv.append(heading, email, password, showPassword, submit, para);
     return loginDiv;
 
 }

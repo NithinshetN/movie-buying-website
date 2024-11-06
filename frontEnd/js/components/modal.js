@@ -1,9 +1,8 @@
+import { HTML_ElEMENTS } from "../utils/config.js";
 import { createElement } from "../utils/domUtils.js"
 
-let message = document.querySelector(".message");
-
-export const modalComponent = (...args) => {
-    message.style.display = "flex";
+export const modalComponent = ({innerdata="",functionComponent="",data={}}) => {
+    HTML_ElEMENTS.message.style.display = "flex";
     const popup = createElement({
         elementName: "div",
         classNames: "popup"
@@ -20,7 +19,7 @@ export const modalComponent = (...args) => {
 
     const para = createElement(({
         elementName: "p",
-        innerHTML: args[0],
+        innerHTML: innerdata,
     }))
 
 
@@ -32,10 +31,10 @@ export const modalComponent = (...args) => {
             key:"id",
             value:"remove"
         }],
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
-                message.style.display = "none";
+                HTML_ElEMENTS.message.style.display = "none";
                 popup.remove();
             }
         }]
@@ -45,10 +44,10 @@ export const modalComponent = (...args) => {
         elementName: "button",
         innerText: "Cancel",
         classNames: "btn btn-danger cancel",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
-                message.style.display = "none";
+                HTML_ElEMENTS.message.style.display = "none";
                 popup.remove();
             }
         }]
@@ -59,16 +58,16 @@ export const modalComponent = (...args) => {
         elementName: "button",
         innerText: "Continue",
         classNames: "btn btn-success",
-        eventListner: [{
+        eventListener: [{
             action: "click",
             operation: function () {
-                args[1](args[2]);
-                message.style.display = "none";
+                functionComponent(data);
+                HTML_ElEMENTS.message.style.display = "none";
                 popup.remove();
             }
         }]
     })
 
     popup.append(xButton,icon,para,cancelButton,continueButton);
-    message.append(popup);
+    HTML_ElEMENTS.message.append(popup);
 }
