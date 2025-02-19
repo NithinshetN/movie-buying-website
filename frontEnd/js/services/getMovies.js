@@ -1,4 +1,5 @@
 import { API_ENDPOINTS,TIMEOUT } from "../utils/config.js";
+
 export const fetchMoviesData=async(val)=>{
     let value;
     if (!val) {

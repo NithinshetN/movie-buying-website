@@ -1,25 +1,15 @@
-const mongoose=require("../db");
+const mongoose=require("mongoose");
+const db=require("../db")
 const bcrypt=require("bcryptjs");
-
-const UserSchema=mongoose.Schema({
+db
+const AdminSchema=mongoose.Schema({
     username:{type:String,required:true,unique:false},
     email:{type:String,required:true,unique:true},
     password:{type:String,required:true},
-    moviesPurchased:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:movies,
-        required:false
-    }],
-    moviesRented:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:movies,
-        required:false
-    }],
-    orderId:{type:Array(String),required:false}
 })
 
 //encryption using bcrypt library
-// UserSchema.pre("save",async function(next){
+// AdminSchema.pre("save",async function(next){
 //     try{
 //         const salt=await bcrypt.genSalt(10);// generate salt 
 //         this.password=await bcrypt.hash(this.password,salt);//use this salt to encrypt the password in the db
@@ -29,5 +19,6 @@ const UserSchema=mongoose.Schema({
 //     };
 // });
 
-const User=mongoose.model("User",UserSchema)
-module.exports=User;
+const Admin=mongoose.model('Admin',AdminSchema);
+
+module.exports=Admin;

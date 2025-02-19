@@ -1,7 +1,7 @@
-const movie = require("../models/movie.model");
+const Movie = require("../models/movie.models ");
 const { validateMovie, movieExists } = require("../validations/movie.validation");
 
-
+//controllers used to add Movie to the dataBase
 exports.addMovie = async (req, res, next) => {
     const validationMovie = validateMovie(req.body);
     if (!validationMovie.success) {
@@ -11,7 +11,7 @@ exports.addMovie = async (req, res, next) => {
         return next(`${req.body.title}:Movie exists`)
     }
     try {
-        const newMovie = new movie(req.body);
+        const newMovie = new Movie(req.body);
         const savedMovie = await newMovie.save();
         res.status(200).json({ message: "movie added succesfully", movie: savedMovie });
     } catch (error) {
