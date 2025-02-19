@@ -1,17 +1,19 @@
-const Movie = require("../models/movie.models ");
-const { validateMovie, movieExists } = require("../validations/movie.validation");
+const Movie = require("../models/movie.models");
+const { movieExists } = require("../services/movie.services");
+const { validateMovie } = require("../validations/movie.validation");
 
 //controllers used to add Movie to the dataBase
-exports.addMovie = async (req, res, next) => {
+const addMovie = async (req, res, next) => {
+    movieData=req.body;
     const validationMovie = validateMovie(req.body);
     if (!validationMovie.success) {
         return next("wrong format");
     }
-    if (movieExists(req.body.title)) {
+    if (await movieExists({title:movieData.title})) {
         return next(`${req.body.title}:Movie exists`)
     }
     try {
-        const newMovie = new Movie(req.body);
+        const newMovie = new Movie(movieData);
         const savedMovie = await newMovie.save();
         res.status(200).json({ message: "movie added succesfully", movie: savedMovie });
     } catch (error) {
@@ -20,19 +22,23 @@ exports.addMovie = async (req, res, next) => {
 };
 
 //this controller returns data based on the parameters give will send all if no parameters are specified
-exports.getMovie = async (req, res, next) => {
+const getMovie = async (req, res, next) => {
     try {
         const value = req.params.value;
-        let data;
-        if (title) {
-            const regex = new RegExp(value, i)
-            data = await movie.find({ title: {$regex:regex} });
+        let movies;
+        if (value) {
+            console.log(value);
+            const regex = new RegExp(value, 'i');
+            movies = await Movie.find({ title: {$regex:regex} });
         } else {
-            data = await movie.find();
+            movies = await Movie.find();
         }
-        res.status(200).json(data);
+        res.status(200).json(movies);
     } catch (error) {
-        next(error);
+        console.log(error);
+        return next(error);
     }
 
 }
+
+module.exports={addMovie,getMovie}

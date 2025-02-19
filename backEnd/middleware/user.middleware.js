@@ -1,7 +1,6 @@
-const {verifyToken,decodeToken}=require("../utils/jsonWebToken");
-const Admin=require("../models/admin.models");
+const {verifyToken,decodeToken}=require("../utils");
 
-const adminAuth=(req,res,next)=>{
+const userAuth=(req,res,next)=>{
     const token=req.headers.authorization;
 
     try{
@@ -14,7 +13,6 @@ const adminAuth=(req,res,next)=>{
     }catch(error){
         next(error);
     }
-
 }
 
-module.exports=adminAuth;
+module.exports={userAuth};

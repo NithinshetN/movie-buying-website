@@ -1,5 +1,4 @@
 const z=require("zod");
-const movie=require("../models/movie.model");
 
 const movieSchema=z.object({
     thumbnail: z.string(),
@@ -16,4 +15,4 @@ const validateMovie=(data)=>{
     return result;
 }
 
-module.exports={validateMovie,movieExists};
+module.exports={validateMovie};

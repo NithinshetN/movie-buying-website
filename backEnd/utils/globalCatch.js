@@ -1,4 +1,7 @@
-export const globalCatch=(req,res,next,error)=>{
+
+const globalCatch=(error,req,res,next)=>{
+    console.dir(error);
     res.status(404).json({error});
-    console.log(error);
-}
+};
+
+module.exports=globalCatch;

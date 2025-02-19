@@ -11,9 +11,18 @@ const adminSchema=z.object({
         .regex(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, { message: 'Password must contain at least one symbol' }),
 });
 
+const adminSchemaEmail=z.object({
+    email:z.string().email({message:"Enter valid email"})
+});
+
+
 const validateAdmin=(data)=>{
-    const result=userSchema.safeParse(data);
-    return result;
+    return adminSchema.safeParse(data);
 }
 
-module.exports={validateAdmin};
+const validateAdminEmail=(data)=>{
+    return adminSchemaEmail.safeParse(data);
+}
+
+
+module.exports={validateAdmin,validateAdminEmail};

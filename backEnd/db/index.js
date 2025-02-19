@@ -1,11 +1,9 @@
 const mongoose=require("mongoose");
 const config=require("../config/config");
-
 const connectToDatabase=async ()=>{
     try{
         console.log(config.database.uri)
         await mongoose.connect(config.database.uri);
-        console.log("connected to the database");
     }catch(error){
         console.error("Database connection error",error);
         process.exit(1);
