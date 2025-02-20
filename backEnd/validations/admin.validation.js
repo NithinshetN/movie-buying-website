@@ -1,6 +1,7 @@
 const z=require("zod");
+const Admin = require("../models/admin.models");
 
-const userSchema=z.object({
+const adminSchema=z.object({
     username: z.string().min(5, { message: "username must be 5 charecters long" }),
     email: z.string().email({ message: "Enter valid email" }),
     password: z.string()
@@ -10,8 +11,18 @@ const userSchema=z.object({
         .regex(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, { message: 'Password must contain at least one symbol' }),
 });
 
-const userEmailSchema=z.object({
+const adminSchemaEmail=z.object({
     email:z.string().email({message:"Enter valid email"})
 });
 
-module.exports={userSchema,userEmailSchema}
+
+const validateAdmin=(data)=>{
+    return adminSchema.safeParse(data);
+}
+
+const validateAdminEmail=(data)=>{
+    return adminSchemaEmail.safeParse(data);
+}
+
+
+module.exports={validateAdmin,validateAdminEmail};
