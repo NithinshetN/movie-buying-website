@@ -5,7 +5,7 @@ const { adminAuth } = require("../middleware/admin.middleware");
 const router = express.Router();
 
 router.post("/signup",adminSignup);
-router.post("/signin",adminSignin)
+router.post("/signin",adminSignin);
 router.post("/addMovie",adminAuth,addMovie);
 
 module.exports=router;
