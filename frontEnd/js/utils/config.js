@@ -1,4 +1,4 @@
-export const BASE_URL="http://localhost:3000";
+export const BASE_URL="https://movie-website-j96f.onrender.com";
 
 const message=document.querySelector(".message");
 const mainContent=document.querySelector(".mainContent");
