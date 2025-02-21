@@ -26,16 +26,14 @@ const getMovie = async (req, res, next) => {
     try {
         const value = req.params.value;
         let movies;
-        if (value) {
-            console.log(value);
+        if (!value) {
+            movies = await Movie.find();
+        } else {
             const regex = new RegExp(value, 'i');
             movies = await Movie.find({ title: {$regex:regex} });
-        } else {
-            movies = await Movie.find();
         }
         res.status(200).json(movies);
     } catch (error) {
-        console.log(error);
         return next(error);
     }
 

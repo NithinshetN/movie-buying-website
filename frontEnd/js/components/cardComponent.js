@@ -47,10 +47,14 @@ const ButtonContainer = (details) => {
         classNames:"buttonClass"
     });
 
-    const button1 = createElement({
+    const rentButton = createElement({
         elementName: "button",
         innerText: "Rent",
         classNames: "btn btn-danger",
+        attributes: [{
+            key: "value",
+            value: "rent"
+        }],
         eventListener: [{
             action: "click",
             operation: function(){
@@ -58,6 +62,8 @@ const ButtonContainer = (details) => {
                     innerdata:`<center>Movie name: ${details.title}</br>Final invoice amount:</br>${details.currency} ${details.price[0]}.00</br>Click 'Continue' to proceed</center>`,
                     functionComponent:gateWay,
                     data:{
+                        orderType:this.value,
+                        movieId:details._id,
                         movie:details.title,
                         description:this.innerText,
                         amount:details.price[0]
@@ -67,10 +73,14 @@ const ButtonContainer = (details) => {
         }]
     })
 
-    const button2 = (createElement({
+    const buyButton = (createElement({
         elementName: "button",
         innerText: "Buy",
         classNames: "btn btn-success",
+        attributes: [{
+            key: "value",
+            value: "buy"
+        }],
         eventListener: [{
             action: "click",
             operation: function(){
@@ -78,6 +88,8 @@ const ButtonContainer = (details) => {
                     innerdata:`<center>Movie name: ${details.title}</br>Final invoice amount:</br>${details.currency} ${details.price[1]}.00</br>Click 'Continue' to proceed</center>`,
                     functionComponent:gateWay,
                     data:{
+                        orderType:this.value,
+                        movieId:details._id,
                         movie:details.title,
                         description:this.innerText,
                         amount:details.price[1]
@@ -87,7 +99,7 @@ const ButtonContainer = (details) => {
         }]
     }));
 
-    creator.append(button1,button2);
+    creator.append(rentButton,buyButton);
     return creator;
 }
 

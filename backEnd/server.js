@@ -7,17 +7,16 @@ const config= require("./config/config");
 const app=express();
 const globalCatch=require("./utils/globalCatch")
 const db=require("./db")
-
+const cors=require("cors");
 
 app.use(bodyParser.json());
-
+app.use(cors());
 app.use("/admin", adminRouter);
 app.use("/movie",movieRouter);
 app.use("/user",userRouter);
 
 app.use(globalCatch);
 
-console.log(config.app.port);
 app.listen(config.app.port,()=>{
     console.log("server is running");
 });

@@ -3,6 +3,7 @@ import { HTML_ElEMENTS } from "../utils/config.js";
 import { createElement } from "../utils/domUtils.js";
 
 export const NotificationComponent = (message, heading) => {
+    
     const bannerNotification = createElement({
         elementName: "div",
         classNames: "banner-notification",
