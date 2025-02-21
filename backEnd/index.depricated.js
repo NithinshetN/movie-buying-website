@@ -120,7 +120,7 @@ app.post("/addmovies", async (req, res,next) => {
         if (!await movieExists(req.body.title)) {
             const addMovie = new movie(req.body);
             addMovie.save().then(ele => {
-                console.log("Movie details saved succesfully", ele);
+                ("Movie details saved succesfully", ele);
                 res.status(200).json({ message: "The movie was added succesfully", movie: ele })
             }).catch(err => {
                 next(err);
@@ -171,22 +171,22 @@ app.get("/movies/:value?", async (req, res,next) => { // '?' makes 'value' optio
 app.use(bodyParser.json());
 
 const razorPay = new RazorPay({
-    key_id: process.env.key_id,
-    key_secret: process.env.key_secret
+    key_id:process.env.RAZORPAY_KEY_ID,
+    key_secret:process.env.RAZORPAY_KEY_SECRET
 })
 
 app.post("/createOrder", verifyJWTToken , async (req, res, next) => {
     const headers=req.headers;
     const amount = req.body.amount;
     const options = {
-        amount: amount, // amount in the smallest currency unit (paise)
+        amount: amount *100, // amount in the smallest currency unit (paise)
         currency: "INR",
         receipt: uuidV4() // You can generate a unique receipt ID for each order
     };
-    console.log(uuidV4());
+    (uuidV4());
     try {
         const order = await razorPay.orders.create(options);
-        order.razorPayKey = process.env.key_id;
+        order.razorPayKey = process.env.RAZORPAY_KEY_ID;
         order.username=headers.username;
         order.email=headers.email;
         res.status(200).json(order)
@@ -218,13 +218,11 @@ const signup = async (req, res, next) => {
 //middleware for signin
 const signin = async (req, res, next) => {
     const signinCred = req.body;
-    console.log(signinCred);
     if (!await userExists(signinCred.email)) {
         return next("Invalid user");
     }
 
     const userData = await user.findOne({ email: signinCred.email });
-    console.log(userData);
     if (!await bcrypt.compare(signinCred.password, userData.password)) {
         return next("Invalid password")
     }
@@ -254,7 +252,6 @@ app.post("/login", signin, createJWTToken)
 
 //global error
 app.use((error, req, res, next) => {
-    console.log(error)
     res.status(400).json( {error} );
 });
 

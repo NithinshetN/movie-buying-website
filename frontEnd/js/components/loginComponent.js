@@ -1,6 +1,6 @@
 import { createElement } from "../utils/domUtils.js";
 import { NotificationComponent } from "./notificationComponent.js";
-import { login } from "../services/authServices.js";
+import { login } from "../services/userServices.js";
 import { HTML_ElEMENTS } from "../utils/config.js";
 
 export const loginComponent = () => {

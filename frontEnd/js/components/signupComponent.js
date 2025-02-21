@@ -1,20 +1,24 @@
 import { createElement } from "../utils/domUtils.js";
 import { NotificationComponent } from "./notificationComponent.js";
-import { signup } from "../services/authServices.js";
+import { signup } from "../services/userServices.js";
 import { HTML_ElEMENTS } from "../utils/config.js";
 
+//Function to creatae signup and login component
 export const signupComponent = () => {
+    //crating parent loigni div
     const loginDiv = createElement({
         elementName: "div",
         classNames: "register signup"
     })
 
+    //heading element 
     const heading = createElement({
         elementName: "div",
         classNames: "heading",
         innerHTML: "<h2>Create an account</h2>"
     })
 
+    //input element for username
     const username = createElement({
         elementName: "input",
         attributes: [{
@@ -26,6 +30,7 @@ export const signupComponent = () => {
         }]
     });
 
+    //input elmeent of type email
     const email = createElement({
         elementName: "input",
         attributes: [{
@@ -37,7 +42,7 @@ export const signupComponent = () => {
         }]
     });
 
-
+    //input element of type password
     const password = createElement({
         elementName: "input",
         innerHTML: `<i class="fa-solid fa-eye" style="z-index:1;"></i>`,
@@ -50,6 +55,7 @@ export const signupComponent = () => {
         }]
     })
 
+    //imnput element of the password for confirm password
     const confirmPassword = createElement({
         elementName: "input",
         attributes: [{
@@ -62,11 +68,13 @@ export const signupComponent = () => {
         }]
     });
 
+    //paragraph elemen to toggle between login/signup
     const para = createElement({
         elementName: "p",
         innerText: "Already have an account?"
     });
-
+    
+    //element to open login element
     const span = createElement({
         elementName: "span",
         innerHTML: "<u>Login</u>",
@@ -79,6 +87,7 @@ export const signupComponent = () => {
         }]
     })
 
+    //para element to toggle between show password and hide password
     const showPassword = createElement({
         elementName: "p",
         innerText: "Show password",
@@ -98,7 +107,10 @@ export const signupComponent = () => {
             }
         }]
     })
+
     showPassword.style.cursor = "pointer";
+
+    //submit button for user creation or signin 
     const submit = createElement({
         elementName: "button",
         classNames: "btn btn-primary",

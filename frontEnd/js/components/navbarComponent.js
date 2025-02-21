@@ -140,7 +140,6 @@ export const navbarComponent = (getMovieData) => {
             }
         }catch(error){
             div.append(logInbutton);
-            console.log(error);
             NotificationComponent("Sorry something went wrong",error.message);
         }
         

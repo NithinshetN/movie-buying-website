@@ -1,4 +1,4 @@
-const {verifyToken,decodeToken}=require("../utils");
+const {verifyToken,decodeToken}=require("../utils/jsonWebToken");
 
 const userAuth=(req,res,next)=>{
     const token=req.headers.authorization;
@@ -8,10 +8,11 @@ const userAuth=(req,res,next)=>{
         const data=decodeToken(token);
         if(valid){
             req.username=data.username;
+            req.email=data.email;
             next();
         }
     }catch(error){
-        next(error);
+        return next(error);
     }
 }
 

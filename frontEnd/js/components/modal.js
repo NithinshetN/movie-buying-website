@@ -3,6 +3,7 @@ import { createElement } from "../utils/domUtils.js"
 
 export const modalComponent = ({innerdata="",functionComponent="",data={}}) => {
     HTML_ElEMENTS.message.style.display = "flex";
+    
     const popup = createElement({
         elementName: "div",
         classNames: "popup"

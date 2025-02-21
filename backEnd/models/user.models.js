@@ -16,8 +16,8 @@ const UserSchema=mongoose.Schema({
         ref:Movie,
         required:false
     }],
-    orderId:{type:Array(String),required:false}
-})
+    paymentId:{type:Array(String),required:false}
+});
 
-const User=mongoose.model("Users",UserSchema)
+const User=mongoose.model("Users",UserSchema); 
 module.exports=User;

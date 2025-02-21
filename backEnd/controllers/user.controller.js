@@ -2,7 +2,7 @@ const User=require("../models/user.models");
 const {userSchema,userEmailSchema}=require("../validations/user.validation");
 const {hashedPassword,comparePassword}=require("../utils/passwordHash");
 const {generateToken}=require("../utils/jsonWebToken");
-const { userExists } = require("../services/user.services");
+const { userExists ,updatePaymentId,updateMoviesPurchased,updateMoviesRented,ifMovieAquired} = require("../services/user.services");
 
 const userSignup=async (req,res,next)=>{
     try{
@@ -54,4 +54,61 @@ const userSignin=async(req,res,next)=>{
     }
 }
 
-module.exports={userSignup,userSignin};
+const verifyToken=(req,res,next)=>{
+    try{
+        res.status(200).json({validation:true,username:req.username,email:req.email})
+    }catch(error){
+        return next(error);
+    }
+}
+
+const addpaymentId=async (req,res,next)=>{
+    try{
+        if(await updatePaymentId({email:req.email,paymentId:req.body.paymentId})){
+            res.status(200).json("movie id added succesfully");
+        }else{
+            return next("error");
+        }
+    }catch(error){
+        return next(error);
+    }
+}
+
+const addToRentedMovies=async (req,res,next)=>{
+    try{
+        if(await updateMoviesRented({email:req.email,movieId:req.body.movieId})){
+            res.status(200).json("movie id added succesfully");
+        }else{
+            return next("error");
+        }
+    }catch(error){
+        return next(error);
+    }
+}
+
+const addToPurchasedMovies=async (req,res,next)=>{
+    try{
+        if(await updateMoviesPurchased({email:req.email,movieId:req.body.movieId})){
+            res.status(200).json("movie id added succesfully");
+        }else{
+            return next("error");
+        }
+    }catch(error){
+        return next(error);
+    }
+}
+
+const movieAquired=async (req,res,next)=>{
+    try{
+        if(await ifMovieAquired({email:req.email,movieId:req.params.movieId})){
+            return res.status(200).json({validation:true,message:"You have access to this movie"})
+        };
+
+        res.status(200).json({validation:false,message:""});
+
+    }catch(error){
+        return next(error);
+    }
+}
+
+module.exports={userSignup,userSignin,addpaymentId,verifyToken,addToPurchasedMovies,addToRentedMovies,movieAquired};
